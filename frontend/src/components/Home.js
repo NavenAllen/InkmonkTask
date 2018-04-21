@@ -80,9 +80,9 @@ class Home extends Component {
         .get("http://localhost:5000/api/token", {auth: this.state.credentials})
         .then(response => {
           console.log(response.data)
-          this.setState({credentials:{}})
 
           localStorage.setItem('token',response.data.token)
+          this.setState({credentials:{}, redirect:true})
     
     
         })

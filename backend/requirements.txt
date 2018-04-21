@@ -1,0 +1,5 @@
+Flask
+passlib
+marshmallow
+flask-cors
+Flask-HTTPAuth

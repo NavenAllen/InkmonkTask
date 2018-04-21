@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../logo.svg';
 import './App.css'
+import {Redirect} from 'react-router'
 
 // The Header creates links that can be used to navigate
 // between routes.
@@ -15,12 +16,21 @@ class Header extends React.Component {
     else 
       showNav = false
     this.state = {
-      showNav: showNav
+      showNav: showNav,
+      redirect:false
     }
-    console.log(this.state)
   }
+    redirectToSale() {
+
+      this.setState({redirect:true})
+
+    }
+    
 
   render() {
+    if (this.state.redirect === true) {
+      return <Redirect to='/sale' />
+    }
     return (
     <div className = "App">
   <header className="App-header">
