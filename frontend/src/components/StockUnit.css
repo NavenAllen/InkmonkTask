@@ -1,0 +1,78 @@
+.StockUnit {
+    border: 1px solid #bbb;
+    background-color: #eae;
+  }
+
+  .StockUnitChild {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #bbb;
+    background-color: #eee;
+    display: inline-table
+  }
+
+  .StockUnitInput {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #bbb;
+    display: inline-table;
+    font-size: 1.2em
+  }
+  
+  .StockUnit span {
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #333;
+    vertical-align: middle;
+    padding: 10px
+  }
+
+  .modal {
+    font-size: 12px;
+  }
+  .modal > .header {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    font-size: 18px;
+    text-align: center;
+    padding: 5px;
+  }
+  .modal > .content {
+    width: 100%;
+    padding: 10px 5px;
+  }
+  .modal > .actions {
+    width: 100%;
+    padding: 10px 5px;
+    margin: auto;
+    text-align: center;
+  }
+  .modal > .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+  }
+
+.table {
+    border-collapse: collapse;
+    align-self: center;
+    display:block;
+}
+
+.td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.tr:nth-child(even) {
+    background-color: #aaaaaa;
+}
