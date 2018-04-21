@@ -36,7 +36,8 @@ class Sale extends Component {
       salesInvoice: [],
       recentTotalCost: 0,
       auth: auth,
-      toLogin:false
+      toLogin:false,
+      stockLow:false
     };
 
     console.log(this.state.toLogin)
@@ -44,6 +45,7 @@ class Sale extends Component {
     console.log(this.state.auth)
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this)
+    this.closeStockLowModal = this.closeStockLowModal.bind(this);
   }
 
   createQuantityVariable () {
@@ -69,6 +71,11 @@ class Sale extends Component {
   closeModal() {
     this.createQuantityVariable()
     this.setState({modalIsOpen: false});
+  }
+
+  closeStockLowModal() {
+    this.createQuantityVariable()
+    this.setState({stockLow: false});
   }
 
   componentDidMount() {
@@ -116,15 +123,17 @@ class Sale extends Component {
     axios
     .post("http://localhost:5000/api/stocks/sale", {"skus":this.state.stockUnits}, {auth:this.state.auth})
     .then(response => {
+      if(response.data.success){  
+        var newStockUnits = response.data.updatedStockUnits;
+        var salesInvoice = response.data.salesInvoice
+        var recentTotalCost = response.data.totalCost
 
-      var newStockUnits = response.data.updatedStockUnits;
-      var salesInvoice = response.data.salesInvoice
-      var recentTotalCost = response.data.totalCost
-
-      console.log(recentTotalCost)
-
-
-      this.setState({ stockUnits: newStockUnits , salesInvoice:salesInvoice, modalIsOpen:true, recentTotalCost:recentTotalCost});
+        this.setState({ stockUnits: newStockUnits , salesInvoice:salesInvoice, modalIsOpen:true, recentTotalCost:recentTotalCost});
+      } else {
+        this.setState({
+          stockLow:true
+        })
+      }
 
     })
     .catch( error => {
@@ -209,6 +218,14 @@ class Sale extends Component {
           className="-striped -highlight"
           minRows = {0}
         />
+        </Modal>
+        <Modal
+          isOpen={this.state.stockLow}
+          onRequestClose={this.closeStockLowModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <p>Stock not available!</p>
         </Modal>
 
       </div>

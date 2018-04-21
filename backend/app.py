@@ -170,17 +170,22 @@ def sale_done():
         if not 'id' in sku or not 'quantity' in sku:
             abort(400)
 
+        print(sku)
+
         if sku['quantity'] :
 
-            update_sku = db.session.query(StockDetails).filter_by(id=sku['id']).one()
-            update_sku.stock -= sku['quantity']
-            db.session.commit()
+            if(sku['stock']>=sku['quantity']):
+                update_sku = db.session.query(StockDetails).filter_by(id=sku['id']).one()
+                update_sku.stock -= sku['quantity']
+                db.session.commit()
+                sku['stock']-= sku['quantity']
+            else:
+                return jsonify({'success':False, 'error':'Stock not available'}), 200
 
             cost = sku['price']*sku['quantity']
             tax = cost*sku['tax_percent']
             discount = cost*sku['discount']
             cost += tax - discount
-            sku['stock']-= sku['quantity']
 
             total_cost +=cost
 
